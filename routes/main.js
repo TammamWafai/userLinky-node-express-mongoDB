@@ -19,13 +19,14 @@ const { createSocialMedia,
 // const authMiddleware = require('../middleware/auth')
 // Define the home page route
 
-router.get('/', function (req, res) {
-    res.send('Home page');
-});
+// router.get('/', function (req, res) {
+//     res.send('Home page');
+// });
 
 router.get('/:user', mainPage)
 
-router.get('/:user/dashboard', login)
+router.get('/:user/dashboard', function (req, res) { res.send(`${req.params.user} dashboard`) })
+// router.post('/:user/dashboard', login)
 
 module.exports = router
 
