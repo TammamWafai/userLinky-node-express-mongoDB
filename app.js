@@ -5,6 +5,7 @@ const connectDB = require('./db/connect')
 const mainRouter = require('./routes/main')
 
 // Middleware
+app.use(express.json())
 app.use('/', mainRouter)
 
 // Connect to DB and listen to PORT

@@ -1,5 +1,12 @@
 const express = require('express')
 const router = express.Router()
+const { createSocialMedia,
+    deleteSocialMedia,
+    getAllSocialMedias,
+    updateSocialMedia,
+    getSocialMedia,
+    register,
+    login, mainPage } = require('../controllers/main')
 
 // //Middle ware that is specific to this router
 // router.use(function timeLog(req, res, next) {
@@ -11,17 +18,14 @@ const router = express.Router()
 
 // const authMiddleware = require('../middleware/auth')
 // Define the home page route
+
 router.get('/', function (req, res) {
     res.send('Home page');
 });
 
-router.get('/:user', function (req, res) {
-    res.send(`${req.params.user} Social media Links`)
-})
+router.get('/:user', mainPage)
 
-router.get('/:user/dashboard', function (req, res) {
-    res.send(`Welcome ${req.params.user}! Dashboard `)
-})
+router.get('/:user/dashboard', login)
 
 module.exports = router
 
