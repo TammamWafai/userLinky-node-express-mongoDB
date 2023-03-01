@@ -9,16 +9,37 @@ const registerPasswordInputDOM = document.querySelector('.register-password-inpu
 
 const formAlertDOM = document.querySelector('.form-alert')
 const resultDOM = document.querySelector('.result')
-const btnDOM = document.querySelector('#data')
+// const btnDOM = document.querySelector('#data')
 const tokenDOM = document.querySelector('.token')
 const btnRegister = document.querySelector('.registerBtn')
 const btnLogin = document.querySelector('.loginBtn')
 
-document.addEventListener("DOMContentLoaded", function () {
-  registerFormDOM.style.display = 'none'
-});
+// // let showForm = ''
+
+// document.onload = codeAddress();
+// function codeAddress() {
+
+//   // if (showForm === 'login') {
+//   //   console.log('LOGIN')
+//   //   registerFormDOM.style.display = 'none'
+//   //   loginFormDOM.style.display = 'block'
+//   // } else if (showForm === 'register') {
+
+//   //   console.log('REGISTER')
+//   //   registerFormDOM.style.display = 'block'
+//   //   loginFormDOM.style.display = 'none'
+//   // }
+
+// }
 
 loginFormDOM.addEventListener('submit', async (e) => {
+  cosole.log("REACT ", email, password)
+  const { username } = await axios.get(`/username`, { email, password })
+    .then(response => {
+      console.log(response)
+    })
+  alert(username)
+
   formAlertDOM.classList.remove('text-success')
   tokenDOM.classList.remove('text-success')
 
@@ -27,7 +48,8 @@ loginFormDOM.addEventListener('submit', async (e) => {
   const password = passwordInputDOM.value
 
   try {
-    const { data } = await axios.post('/:user/dashboard', { email, password })
+
+    const { data } = await axios.post(`/${email}/dashboard`, { email, password })
 
     formAlertDOM.style.display = 'block'
     formAlertDOM.textContent = data.msg
@@ -63,31 +85,31 @@ btnLogin.addEventListener('click', async (e) => {
   registerFormDOM.style.display = 'none'
 })
 
-btnDOM.addEventListener('click', async () => {
-  const token = localStorage.getItem('token')
-  try {
-    const { data } = await axios.get('/api/v1/dashboard', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    resultDOM.innerHTML = `<h5>${data.msg}</h5><p>${data.secret}</p>`
+// btnDOM.addEventListener('click', async () => {
+//   const token = localStorage.getItem('token')
+//   try {
+//     const { data } = await axios.get('/api/v1/dashboard', {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     })
+//     resultDOM.innerHTML = `<h5>${data.msg}</h5><p>${data.secret}</p>`
 
-    data.secret
-  } catch (error) {
-    localStorage.removeItem('token')
-    resultDOM.innerHTML = `<p>${error.response.data.msg}</p>`
-  }
-})
+//     data.secret
+//   } catch (error) {
+//     localStorage.removeItem('token')
+//     resultDOM.innerHTML = `<p>${error.response.data.msg}</p>`
+//   }
+// })
 
-const checkToken = () => {
-  tokenDOM.classList.remove('text-success')
+// const checkToken = () => {
+//   tokenDOM.classList.remove('text-success')
 
-  const token = localStorage.getItem('token')
-  if (token) {
-    tokenDOM.textContent = 'token present'
-    tokenDOM.classList.add('text-success')
-  }
-}
+//   const token = localStorage.getItem('token')
+//   if (token) {
+//     tokenDOM.textContent = 'token present'
+//     tokenDOM.classList.add('text-success')
+//   }
+// }
 
-checkToken()
+// checkToken()

@@ -6,7 +6,7 @@ const { createSocialMedia,
     updateSocialMedia,
     getSocialMedia,
     register,
-    login, mainPage } = require('../controllers/main')
+    login, mainPage, getUsername } = require('../controllers/main')
 
 // //Middle ware that is specific to this router
 // router.use(function timeLog(req, res, next) {
@@ -23,10 +23,11 @@ const { createSocialMedia,
 //     res.send('Home page');
 // });
 
-router.get('/:user', mainPage)
+// router.get('/:user', mainPage)
 
-router.get('/:user/dashboard', function (req, res) { res.send(`${req.params.user} dashboard`) })
+router.post('/:user/dashboard', function (req, res) { res.send(`${req.params.user} dashboard`) })
 // router.post('/:user/dashboard', login)
+router.get('/username', getUsername)
 
 module.exports = router
 

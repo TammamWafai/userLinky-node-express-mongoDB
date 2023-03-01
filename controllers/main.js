@@ -49,6 +49,20 @@ const mainPage = async (req, res) => {
     res.send(`<h1>${req.params.user} Social Media links</h1>`)
 }
 
+const getUsername = async (req, res) => {
+    console.log(req.body)
+    const { email, password } = req.body
+    console.log(email, password)
+    if (!email || !password) {
+        throw new BadRequestError('Please provide email and password')
+    }
+    const user = await User.findOne({ email })
+    if (!user) {
+        throw new UnauthenticatedError('Invalid Credentials')
+    }
+    res.json(`{username: ${user.name}}`)
+}
+
 
 // Social media
 const getAllSocialMedias = async (req, res) => {
@@ -141,5 +155,5 @@ module.exports = {
     updateSocialMedia,
     getSocialMedia,
     register,
-    login, mainPage
+    login, mainPage, getUsername
 }

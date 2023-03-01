@@ -317,3 +317,7 @@ ul {
 .text-success {
   color: var(--green-dark);
 }
+
+.registerForm {
+  display: none
+}
